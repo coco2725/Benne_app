@@ -1,4 +1,4 @@
-import thread_01BASE_THREAD.Personne;
+//import thread_01BASE_THREAD.Personne;
 
 public class Benne_application {
 
