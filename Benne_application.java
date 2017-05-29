@@ -7,9 +7,12 @@ public class Benne_application {
 		// TODO Auto-generated method stub
 
 		Transporteur T1 = new Transporteur("Transporteur 1");
-		
+		Ouvrier O1 = new Ouvrier("Ouvrier 1");
+		Bucheron B1 = new Bucheron("Bucheron 1");
 		
 		T1.start();
+		O1.start();
+		B1.start();
 	}
 
 }

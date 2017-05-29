@@ -6,42 +6,42 @@ public class Transporteur extends Thread
 		super(name);
 	}
 
-	public void run(){
-		for(int i = 0; i < 10; i++)
-			System.out.println(this.getName());
+	public void run()
+	{
+		System.out.println(this.getName());
 	} 
-	
-	
+
+
 
 	public void transporteBenneDeUsineAForet()
 	{
-		
+
 	}
 
 	public void desamarreBenneForet()
 	{
-		
+
 	}
-	
+
 	public void amarreBenneForet()
 	{
-		
+
 	}
 
 	public void transporteBenneDeForetAUsine()
 	{
-		
+
 	}
-	
+
 	public void desamarreBenneUsine()
 	{
-		
+
 	}
-	
-	
+
+
 	public void amarreBenneUsine()
 	{
-		
+
 	}
 
 }

@@ -1,6 +1,16 @@
 
-public class Bucheron extends Thread {
-
+public class Bucheron extends Thread
+{
+	public Bucheron(String name)
+	{
+		super(name);
+	}
+	
+	public void run()
+	{
+			System.out.println(this.getName());
+	} 
+	
 
 	public void coupe()
 	{
