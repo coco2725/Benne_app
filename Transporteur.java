@@ -9,7 +9,7 @@ public class Transporteur extends Thread
 	private String _benneAAttendre;
 	private int _numBenneAAttendre = 1;
 	private int _nbrDeBenneDansParc = 0;
-	
+
 	public Transporteur(String name, ArrayList<Benne> listDeBennes, int nbrDeBenneDansParc)
 	{
 		super(name);
@@ -46,7 +46,7 @@ public class Transporteur extends Thread
 	{
 		this._benneAAttendre = benneAAttendre;
 	}
-	
+
 	public void transporteBenneDeUsineAForet()
 	{
 		System.out.println(this.getName() + " transporte la benne usine -> foret");
@@ -66,14 +66,23 @@ public class Transporteur extends Thread
 	{
 		System.out.println(this.getName() + " desamarre benne à la foret");
 		_state++;
-		
-		try {
-			TimeUnit.SECONDS.sleep((int)(1+Math.random()*_maxTime));
-			
+
+		try 
+		{
+			//TimeUnit.SECONDS.sleep((int)(1+Math.random()*_maxTime));
+
 			//notify all pour reveiller le bucheron si il attend sur la benne
-			//notifyAll();
+			synchronized(this) 
+			{
+				System.out.println(this.getName() + " NOTIFY : la benne est desamarrée à la foret");
+				this.notify();
+			}
 			//s'endort jausque la benne soie remplie
-			//wait();
+			synchronized(this) 
+			{
+				System.out.println(this.getName() + " VAIT : j'attends la benne pour l'ammarer en la foret");
+				this.wait();
+			};
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -105,7 +114,7 @@ public class Transporteur extends Thread
 			{
 				System.out.println(_listDeBennes.get(i).getName()); 
 			}
-			
+
 			TimeUnit.SECONDS.sleep((int)(1+Math.random()*_maxTime));
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
