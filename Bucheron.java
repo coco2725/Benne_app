@@ -5,20 +5,20 @@ import java.util.concurrent.TimeUnit;
 public class Bucheron extends Thread
 {
 	private int state = 0;
-	private int maxTime = 2;
+	private int maxTime = 3;
 	private ArrayList<Benne> _listDeBennes = new ArrayList<Benne>();
 	private String _benneAAttendre;
-	private int _numBenneAremplir = 0;
+	private int _numBenneARemplir = 0;
 	private int _nbrDeBenneDansParc = 0;
-	private int i = 0;
-	private boolean _benneArrivee = false;
+	Object _lock;
 
-	public Bucheron(String name, ArrayList<Benne> listDeBennes, int nbrDeBenneDansParc)
+	public Bucheron(String name, ArrayList<Benne> listDeBennes, int nbrDeBenneDansParc, Object lock)
 	{
 		super(name);
 		_listDeBennes = listDeBennes;
 		_benneAAttendre = listDeBennes.get(0).getName();
 		_nbrDeBenneDansParc = nbrDeBenneDansParc;
+		_lock = lock;
 	}
 
 	public void run()
@@ -65,57 +65,43 @@ public class Bucheron extends Thread
 		}
 	}
 
-	public synchronized void decharge()
+	public void decharge()
 	{
 		System.out.println(this.getName() + " arrivé vers la benne");
 		try {
-			//TimeUnit.SECONDS.sleep((int)(1+Math.random()*maxTime));
-			do
+			//contôle si la benne à remplir est arrivée
+			if(_listDeBennes.get(_numBenneARemplir).getEtat() == EnumEtatBenne.DESAMARRER_EN_FORET)
 			{
-				//contôle si la benne à remplir est arrivée
-				if(_listDeBennes.get(i).getName() == _benneAAttendre && 
-						_listDeBennes.get(i).getEtat() == EnumEtatBenne.DESAMARRER_EN_FORET)
-				{
-					System.out.println(this.getName() + ", " + _benneAAttendre + " est arrivée");
-					_benneArrivee = true;
-					//_benneAAttendre =  _listDeBennes.get((i+1)%3).getName();
-					_numBenneAremplir = i;
-					state++;
-				}
-				i++;
-			}
-			while((i < (_nbrDeBenneDansParc)) && (!_benneArrivee));
-			i = 0;
-
-			if(_benneArrivee)
-			{
+				System.out.println(this.getName() + ", " + _benneAAttendre + " est arrivée");
+				
 				//rempli la benne
 				System.out.println(this.getName() + " decharge le bois");
 				TimeUnit.SECONDS.sleep((int)(1+Math.random()*maxTime));
-				
+
 				//Changement de l'etat de la benne
-				_listDeBennes.get(_numBenneAremplir).setEtat(EnumEtatBenne.REMPLIR);
-				
+				_listDeBennes.get(_numBenneARemplir).setEtat(EnumEtatBenne.REMPLIE);
+				System.out.println(this.getName() + ", NOTIFY : la "+ _benneAAttendre + " est pleine");
+
 				//benne suivante à remplir
-				_numBenneAremplir = (_numBenneAremplir+1)%_nbrDeBenneDansParc;
-				_benneAAttendre = _listDeBennes.get(_numBenneAremplir).getName();
+				_numBenneARemplir = (_numBenneARemplir+1)%_nbrDeBenneDansParc;
+				_benneAAttendre = _listDeBennes.get(_numBenneARemplir).getName();
+
+				//changement d'état du bucheron
+				state++;
 				
-				//avertissement quelle est pleine
-				_benneArrivee = false;
-				//synchronized(this) 
-				//{
-					System.out.println(this.getName() + " NOTIFY : la benne est pleine");
-					notifyAll();
-				//}
+				synchronized(_lock) 
+				{
+					_lock.notifyAll();
+				};
 			}	
 			else
 			{
 				//s'endort j'usque la benne soit arrivée
-				//synchronized(this) 
-				//{
-					System.out.println(this.getName() + " WAIT : j'attends sur la benne " + _benneAAttendre);
-					this.wait();
-				//};		
+				synchronized(_lock) 
+				{
+					System.out.println(this.getName() + ", WAIT : j'attends sur la benne " + _benneAAttendre);
+					_lock.wait();
+				};		
 			}
 
 		} catch (InterruptedException e) {

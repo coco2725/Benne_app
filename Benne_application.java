@@ -9,6 +9,7 @@ public class Benne_application {
 		// TODO Auto-generated method stub
 
 		int NbBenne = 3;
+		Object lock = new Object();
 		
 		/*
 		 * au départ: toutes les bennes sont vide et desamarée en foret prête pour être remplie
@@ -33,13 +34,13 @@ public class Benne_application {
 		}
 		
 		
-		Transporteur T1 = new Transporteur("Transporteur 1", listDeBennes, NbBenne);
-		Ouvrier O1 = new Ouvrier("Ouvrier 1");
-		Bucheron B1 = new Bucheron("Bucheron 1", listDeBennes, NbBenne);
+		Transporteur T1 = new Transporteur("Transporteur 1", listDeBennes, NbBenne, lock);
+		Ouvrier O1 = new Ouvrier("Ouvrier 1", listDeBennes, NbBenne, lock);
+		Bucheron B1 = new Bucheron("Bucheron 1", listDeBennes, NbBenne, lock);
 		
         
 		T1.start();
-		//O1.start();
+		O1.start();
 		B1.start();
 	}
 

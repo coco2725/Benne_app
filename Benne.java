@@ -16,15 +16,15 @@ public class Benne {
 		switch (state){
 		case DESAMARRER_EN_FORET: desammarerForet();
 		break;
-		case REMPLIR: remplire();
+		case REMPLIE: remplire();
 		break;	
-		case AMMARER_EN_FORET: ammarerForet();
+		case AMARER_EN_FORET: ammarerForet();
 		break;	
 		case TRANSPORTER_DE_FORET_VERS_USINE: transportDeForetVersUsine();
 		break;
 		case DESAMARER_USINE: desamreUsine();
 		break;
-		case VIDER: vider();
+		case VIDE: vider();
 		break;
 		case AMARER_USINE: amarerUsine();
 		break;

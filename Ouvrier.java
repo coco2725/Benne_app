@@ -1,13 +1,25 @@
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 public class Ouvrier extends Thread 
 {
 	private int state = 0;
-	private int maxTime = 10;
+	private int maxTime = 3;
+	private ArrayList<Benne> _listDeBennes = new ArrayList<Benne>();
+	private String _benneAAttendre;
+	private int _numBenneAVider = 0;
+	private int _nbrDeBenneDansParc = 0;
+	private int i = 0;
+	private boolean _benneArrivee = false;
+	Object _lock;
 
-	public Ouvrier(String name)
+	public Ouvrier(String name, ArrayList<Benne> listDeBennes, int nbrDeBenneDansParc, Object lock)
 	{
 		super(name);
+		_listDeBennes = listDeBennes;
+		_benneAAttendre = listDeBennes.get(0).getName();
+		_nbrDeBenneDansParc = nbrDeBenneDansParc;
+		_lock = lock;
 	}
 	
 	public void run()
@@ -31,10 +43,57 @@ public class Ouvrier extends Thread
 	
 	public void dechargeBenne()
 	{
-		System.out.println(this.getName() + " decharge la benne");
-		state++;
+		System.out.println(this.getName() + " arrivé vers la benne");
 		try {
-			TimeUnit.SECONDS.sleep((int)(1+Math.random()*maxTime));
+			//TimeUnit.SECONDS.sleep((int)(1+Math.random()*maxTime));
+			do
+			{
+				//contôle si la benne à vider est arrivée
+				if(_listDeBennes.get(i).getName() == _benneAAttendre && 
+						_listDeBennes.get(i).getEtat() == EnumEtatBenne.DESAMARER_USINE)
+				{
+					System.out.println(this.getName() + ", " + _benneAAttendre + " est arrivée");
+					_benneArrivee = true;
+					//_benneAAttendre =  _listDeBennes.get((i+1)%3).getName();
+					_numBenneAVider = i;
+					state++;
+				}
+				i++;
+			}
+			while((i < (_nbrDeBenneDansParc)) && (!_benneArrivee));
+			i = 0;
+
+			if(_benneArrivee)
+			{
+				//vide la benne
+				System.out.println(this.getName() + " decharge le bois");
+				TimeUnit.SECONDS.sleep((int)(1+Math.random()*maxTime));
+				
+				//Changement de l'etat de la benne
+				_listDeBennes.get(_numBenneAVider).setEtat(EnumEtatBenne.VIDE);
+				
+				//benne suivante à vider
+				_numBenneAVider = (_numBenneAVider+1)%_nbrDeBenneDansParc;
+				_benneAAttendre = _listDeBennes.get(_numBenneAVider).getName();
+				
+				//avertissement quelle est pleine
+				_benneArrivee = false;
+				synchronized(_lock) 
+				{
+					System.out.println(this.getName() + " NOTIFY : la benne est vide");
+					_lock.notifyAll();
+				}
+			}	
+			else
+			{
+				//s'endort j'usque la benne soit arrivée
+				synchronized(_lock) 
+				{
+					System.out.println(this.getName() + " WAIT : j'attends sur la benne " + _benneAAttendre);
+					_lock.wait();
+				};		
+			}
+
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
