@@ -33,7 +33,7 @@ public class Benne_application {
 		}
 		
 		
-		Transporteur T1 = new Transporteur("Transporteur 1");
+		Transporteur T1 = new Transporteur("Transporteur 1", listDeBennes, NbBenne);
 		Ouvrier O1 = new Ouvrier("Ouvrier 1");
 		Bucheron B1 = new Bucheron("Bucheron 1");
 		
