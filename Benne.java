@@ -22,11 +22,13 @@ public class Benne {
 		break;
 		case 3: desamreUsine();
 		break;
-		case 4: amarerUsine();
+		case 4: vider();
 		break;
-		case 5: transportDeUsineAForet();
+		case 5: amarerUsine();
 		break;
-		case 6: desammarerForet();
+		case 6: transportDeUsineAForet();
+		break;
+		case 7: desammarerForet();
 		break;
 		default : break;
 		}
