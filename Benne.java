@@ -4,10 +4,12 @@ public class Benne {
 
 	private int state = 0;
 	private int maxTime = 10;
+	private String _name = "unknow";
 
-	public Bucheron(String name)
+	public Benne(String name)
 	{
-		super(name);
+		this._name = name;
+		this.state = 0;
 	}
 
 	public void run()
@@ -35,6 +37,10 @@ public class Benne {
 		} 
 	}
 	
+	public String getName()
+	{
+		return this._name;
+	}
 	public void remplire()
 	{
 		System.out.println(this.getName() + " remplie");
@@ -56,32 +62,27 @@ public class Benne {
 	public void desamreUsine()
 	{
 		System.out.println(this.getName() + " desammarer à l'usine");
-		state=++;
 	}
 	
 	public void vider()
 	{
 		System.out.println(this.getName() + " est vidée");
-		state=++;
 	}
 
 	
 	public void amarerUsine()
 	{
 		System.out.println(this.getName() + " ammarer à l'usine");
-		state=++;
 	}
 
 	public void transportDeUsineAForet()
 	{
 		System.out.println(this.getName() + " ammarer à l'usine");
-		state=++;
 	}
 
 	public void desammarerForet()
 	{
 		System.out.println(this.getName() + " ammarer à l'usine");
-		state=0;
 	}
 
 }
