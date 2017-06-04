@@ -14,21 +14,21 @@ public class Benne {
 	public void getEtat()
 	{
 		switch (state){
-		case 0: remplire();
+		case 0: desammarerForet();
+		break;
+		case 1: remplire();
 		break;	
-		case 1: ammarerForet();
+		case 2: ammarerForet();
 		break;	
-		case 2: transportDeForetVersUsine();
+		case 3: transportDeForetVersUsine();
 		break;
-		case 3: desamreUsine();
+		case 4: desamreUsine();
 		break;
-		case 4: vider();
+		case 5: vider();
 		break;
-		case 5: amarerUsine();
+		case 6: amarerUsine();
 		break;
-		case 6: transportDeUsineAForet();
-		break;
-		case 7: desammarerForet();
+		case 7: transportDeUsineAForet();
 		break;
 		default : break;
 		}
@@ -44,6 +44,11 @@ public class Benne {
 		this.state = etat;
 	}
 	
+	public void desammarerForet()
+	{
+		System.out.println(this.getName() + " desammarer en forêt");
+	}
+		
 	public void remplire()
 	{
 		System.out.println(this.getName() + " remplie");
@@ -51,7 +56,7 @@ public class Benne {
 
 	public void ammarerForet()
 	{
-		System.out.println(this.getName() + " est ammarée");
+		System.out.println(this.getName() + " est ammarée en Forêt");
 	}
 
 	public void transportDeForetVersUsine()
@@ -76,11 +81,6 @@ public class Benne {
 	}
 
 	public void transportDeUsineAForet()
-	{
-		System.out.println(this.getName() + " ammarer à l'usine");
-	}
-
-	public void desammarerForet()
 	{
 		System.out.println(this.getName() + " ammarer à l'usine");
 	}

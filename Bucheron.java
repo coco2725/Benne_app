@@ -12,7 +12,7 @@ public class Bucheron extends Thread
 
 	public void run()
 	{
-		System.out.println(this.getName() + "creer");
+		System.out.println(this.getName() + " creer");
 		while(true)
 		{
 			switch (state){

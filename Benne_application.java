@@ -11,10 +11,10 @@ public class Benne_application {
 		int NbBenne = 3;
 		
 		/*
-		 * au départ: toutes les bennes sont vide et dans le parque
-		 * Le transporteur peux ammarer la première
+		 * au départ: toutes les bennes sont vide et desamarée en foret prête pour être remplie
+		 * Le transporteur peux ammarer la première quand elle serra remplie par le bucheron
 		 * Le bucheron peut aller couper du bois.
-		 * L'ouvrier attends l'arrivée de la première benne
+		 * L'ouvrier attends l'arrivée de la première benne.
 		 * 
 		 */
 		
