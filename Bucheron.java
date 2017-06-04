@@ -10,6 +10,7 @@ public class Bucheron extends Thread
 	private String _benneAAttendre;
 	private int _numBenneAAttendre = 1;
 	private int _nbrDeBenneDansParc = 0;
+	private int i = 0;
 
 	public Bucheron(String name, ArrayList<Benne> listDeBennes, int nbrDeBenneDansParc)
 	{
@@ -71,6 +72,12 @@ public class Bucheron extends Thread
 				//TimeUnit.SECONDS.sleep((int)(1+Math.random()*maxTime));
 				
 				//contôle si la benne à remplir est arrivée
+				do
+				{
+					
+					System.out.println(_listDeBennes.get(i).getName()); 
+				}
+				while(i < _nbrDeBenneDansParc);
 
 				//s'endort jausque la benne soie remplie
 				synchronized(this) 
