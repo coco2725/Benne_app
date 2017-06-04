@@ -11,7 +11,7 @@ public class Benne {
 		this.state = EnumEtatBenne.DESAMARRER_EN_FORET;
 	}
 
-	public void getEtat()
+	public void EtatSuivant()
 	{
 		switch (state){
 		case DESAMARRER_EN_FORET: desammarerForet();
@@ -42,6 +42,11 @@ public class Benne {
 	public void setEtat(EnumEtatBenne etat)
 	{
 		this.state = etat;
+	}
+	
+	public EnumEtatBenne getEtat()
+	{
+		return state;
 	}
 	
 	public void desammarerForet()

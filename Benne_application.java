@@ -37,8 +37,9 @@ public class Benne_application {
 		Ouvrier O1 = new Ouvrier("Ouvrier 1");
 		Bucheron B1 = new Bucheron("Bucheron 1", listDeBennes, NbBenne);
 		
+        
 		T1.start();
-		O1.start();
+		//O1.start();
 		B1.start();
 	}
 
