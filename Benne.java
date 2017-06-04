@@ -1,6 +1,6 @@
 public class Benne {
 
-	private int state = 0;
+	private EnumEtatBenne state;
 	private int _numBenne = 0;
 	private String _name = "unknow";
 
@@ -8,27 +8,27 @@ public class Benne {
 	{
 		this._name = name;
 		this._numBenne = numBenne;
-		this.state = 0;
+		this.state = EnumEtatBenne.DESAMARRER_EN_FORET;
 	}
 
 	public void getEtat()
 	{
 		switch (state){
-		case 0: desammarerForet();
+		case DESAMARRER_EN_FORET: desammarerForet();
 		break;
-		case 1: remplire();
+		case REMPLIR: remplire();
 		break;	
-		case 2: ammarerForet();
+		case AMMARER_EN_FORET: ammarerForet();
 		break;	
-		case 3: transportDeForetVersUsine();
+		case TRANSPORTER_DE_FORET_VERS_USINE: transportDeForetVersUsine();
 		break;
-		case 4: desamreUsine();
+		case DESAMARER_USINE: desamreUsine();
 		break;
-		case 5: vider();
+		case VIDER: vider();
 		break;
-		case 6: amarerUsine();
+		case AMARER_USINE: amarerUsine();
 		break;
-		case 7: transportDeUsineAForet();
+		case TRANSPORTER_DE_USINE_VERS_FORET: transportDeUsineAForet();
 		break;
 		default : break;
 		}
@@ -39,7 +39,7 @@ public class Benne {
 		return this._name;
 	}
 	
-	public void setEtat(int etat)
+	public void setEtat(EnumEtatBenne etat)
 	{
 		this.state = etat;
 	}

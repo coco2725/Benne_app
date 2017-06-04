@@ -80,7 +80,7 @@ public class Transporteur extends Thread
 			//s'endort jausque la benne soie remplie
 			synchronized(this) 
 			{
-				System.out.println(this.getName() + " VAIT : j'attends la benne pour l'ammarer en la foret");
+				System.out.println(this.getName() + " WAIT : j'attends la benne pour l'ammarer en la foret");
 				this.wait();
 			};
 		} catch (InterruptedException e) {

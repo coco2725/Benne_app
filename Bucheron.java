@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 
@@ -5,9 +6,17 @@ public class Bucheron extends Thread
 {
 	private int state = 0;
 	private int maxTime = 10;
-	public Bucheron(String name)
+	private ArrayList<Benne> _listDeBennes = new ArrayList<Benne>();
+	private String _benneAAttendre;
+	private int _numBenneAAttendre = 1;
+	private int _nbrDeBenneDansParc = 0;
+
+	public Bucheron(String name, ArrayList<Benne> listDeBennes, int nbrDeBenneDansParc)
 	{
 		super(name);
+		_listDeBennes = listDeBennes;
+		_benneAAttendre = listDeBennes.get(0).getName();
+		_nbrDeBenneDansParc = nbrDeBenneDansParc;
 	}
 
 	public void run()
@@ -59,7 +68,21 @@ public class Bucheron extends Thread
 			System.out.println(this.getName() + " decharge le bois");
 			state++;
 			try {
-				TimeUnit.SECONDS.sleep((int)(1+Math.random()*maxTime));
+				//TimeUnit.SECONDS.sleep((int)(1+Math.random()*maxTime));
+				
+				//contôle si la benne à remplir est arrivée
+
+				//s'endort jausque la benne soie remplie
+				synchronized(this) 
+				{
+					System.out.println(this.getName() + " WAIT : j'attends sur la benne " + _benneAAttendre);
+					this.wait();
+				};				
+				synchronized(this) 
+				{
+					System.out.println(this.getName() + " NOTIFY : la benne est desamarrée à la foret");
+					this.notify();
+				}
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
