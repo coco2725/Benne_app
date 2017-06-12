@@ -40,11 +40,12 @@ public class Benne_application {
 		Transporteur T1 = new Transporteur("Transporteur 1", listDeBennes, listEvenement, NbBenne, lock);
 		Ouvrier O1 = new Ouvrier("Ouvrier 1", listDeBennes, listEvenement, NbBenne, lock);
 		Bucheron B1 = new Bucheron("Bucheron 1", listDeBennes, listEvenement,  NbBenne, lock);
-		
+		RDP_Scheduler rdpScheduler = new RDP_Scheduler("rdpScheduler", listEvenement, lock);
         
 		T1.start();
 		O1.start();
 		B1.start();
+		rdpScheduler.start();
 	}
 
 }
