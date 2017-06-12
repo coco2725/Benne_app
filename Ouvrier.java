@@ -6,6 +6,7 @@ public class Ouvrier extends Thread
 	private int state = 0;
 	private int maxTime = 3;
 	private ArrayList<Benne> _listDeBennes = new ArrayList<Benne>();
+	private ArrayList<Integer> _listEvenement = new ArrayList<Integer>();
 	private String _benneAAttendre;
 	private int _numBenneAVider = 0;
 	private int _nbrDeBenneDansParc = 0;
@@ -13,10 +14,11 @@ public class Ouvrier extends Thread
 	private boolean _benneArrivee = false;
 	Object _lock;
 
-	public Ouvrier(String name, ArrayList<Benne> listDeBennes, int nbrDeBenneDansParc, Object lock)
+	public Ouvrier(String name, ArrayList<Benne> listDeBennes, ArrayList<Integer> listEvenement, int nbrDeBenneDansParc, Object lock)
 	{
 		super(name);
 		_listDeBennes = listDeBennes;
+		_listEvenement = listEvenement;
 		_benneAAttendre = listDeBennes.get(0).getName();
 		_nbrDeBenneDansParc = nbrDeBenneDansParc;
 		_lock = lock;

@@ -21,6 +21,9 @@ public class Benne_application {
 		
 		//création de la liste de benne
 		ArrayList<Benne> listDeBennes = new ArrayList<Benne>();
+
+		//création de la liste du buffer d'évenement
+		ArrayList<Integer> listEvenement = new ArrayList<Integer>();
 		
 		for(int i = 1; i <= NbBenne ; i++)
 		{
@@ -34,9 +37,9 @@ public class Benne_application {
 		}
 		
 		
-		Transporteur T1 = new Transporteur("Transporteur 1", listDeBennes, NbBenne, lock);
-		Ouvrier O1 = new Ouvrier("Ouvrier 1", listDeBennes, NbBenne, lock);
-		Bucheron B1 = new Bucheron("Bucheron 1", listDeBennes, NbBenne, lock);
+		Transporteur T1 = new Transporteur("Transporteur 1", listDeBennes, listEvenement, NbBenne, lock);
+		Ouvrier O1 = new Ouvrier("Ouvrier 1", listDeBennes, listEvenement, NbBenne, lock);
+		Bucheron B1 = new Bucheron("Bucheron 1", listDeBennes, listEvenement,  NbBenne, lock);
 		
         
 		T1.start();

@@ -6,16 +6,18 @@ public class Transporteur extends Thread
 	private int _state = 1;
 	private int _maxTime = 10;
 	private ArrayList<Benne> _listDeBennes = new ArrayList<Benne>();
+	private ArrayList<Integer> _listEvenement = new ArrayList<Integer>();
 	private String _benneAAmmarerEnForet;
 	private int i = 0;
 	private int _numBenneAAmmarerEnForet = 2;
 	private int _nbrDeBenneDansParc = 0;
 	Object _lock;
 
-	public Transporteur(String name, ArrayList<Benne> listDeBennes, int nbrDeBenneDansParc, Object lock)
+	public Transporteur(String name, ArrayList<Benne> listDeBennes, ArrayList<Integer> listEvenement, int nbrDeBenneDansParc, Object lock)
 	{
 		super(name);
 		_listDeBennes = listDeBennes;
+		_listEvenement = listEvenement;
 		_benneAAmmarerEnForet = listDeBennes.get(0).getName();
 		_nbrDeBenneDansParc = nbrDeBenneDansParc;
 		_lock = lock;
