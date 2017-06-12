@@ -10,6 +10,8 @@ public class Benne_application {
 
 		int NbBenne = 3;
 		Object lock = new Object();
+		Object lockRDP = new Object();
+
 		
 		/*
 		 * au départ: toutes les bennes sont vide et desamarée en foret prête pour être remplie
@@ -40,12 +42,14 @@ public class Benne_application {
 		Transporteur T1 = new Transporteur("Transporteur 1", listDeBennes, listEvenement, NbBenne, lock);
 		Ouvrier O1 = new Ouvrier("Ouvrier 1", listDeBennes, listEvenement, NbBenne, lock);
 		Bucheron B1 = new Bucheron("Bucheron 1", listDeBennes, listEvenement,  NbBenne, lock);
-		RDP_Scheduler rdpScheduler = new RDP_Scheduler("rdpScheduler", listEvenement, lock);
-        
+		RDP_Scheduler rdpScheduler = new RDP_Scheduler("rdpScheduler", listEvenement, lockRDP);
+        Tick tick = new Tick(1, lockRDP);
+		
 		T1.start();
 		O1.start();
 		B1.start();
 		rdpScheduler.start();
+		tick.start();
 	}
 
 }

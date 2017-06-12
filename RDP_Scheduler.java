@@ -6,6 +6,8 @@ public class RDP_Scheduler extends Thread
 {
 
 	Object _lock;
+	private Integer _numEvenement;
+	
 	private ArrayList<Integer> _listEvenement = new ArrayList<Integer>();
 
 	public RDP_Scheduler(String name, ArrayList<Integer> listEvenement, Object lock)
