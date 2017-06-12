@@ -21,7 +21,7 @@ public class Tick extends Thread {
 				e.printStackTrace();
 			}
 			synchronized (_lock) {
-				_lock.notifyAll();
+				_lock.notify();
 			}
 		}
 	}
