@@ -51,7 +51,7 @@ public class Benne {
 	
 	public void desammarerForet()
 	{
-		System.out.println(this.getName() + " desammarer en forêt");
+		System.out.println(this.getName() + " desammarer en forï¿½t");
 	}
 		
 	public void remplire()
@@ -61,7 +61,7 @@ public class Benne {
 
 	public void ammarerForet()
 	{
-		System.out.println(this.getName() + " est ammarée en Forêt");
+		System.out.println(this.getName() + " est ammarï¿½e en Forï¿½t");
 	}
 
 	public void transportDeForetVersUsine()
@@ -71,23 +71,23 @@ public class Benne {
 
 	public void desamreUsine()
 	{
-		System.out.println(this.getName() + " desammarer à l'usine");
+		System.out.println(this.getName() + " desammarer ï¿½ l'usine");//
 	}
 
 	public void vider()
 	{
-		System.out.println(this.getName() + " est vidée");
+		System.out.println(this.getName() + " est vidï¿½e");
 	}
 
 
 	public void amarerUsine()
 	{
-		System.out.println(this.getName() + " ammarer à l'usine");
+		System.out.println(this.getName() + " ammarer ï¿½ l'usine");
 	}
 
 	public void transportDeUsineAForet()
 	{
-		System.out.println(this.getName() + " ammarer à l'usine");
+		System.out.println(this.getName() + " ammarer ï¿½ l'usine");
 	}
 
 }
