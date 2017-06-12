@@ -69,12 +69,12 @@ public class Bucheron extends Thread
 
 	public void decharge()
 	{
-		System.out.println(this.getName() + " arrivé vers la benne");
+		System.out.println(this.getName() + " arrivï¿½ vers la benne");
 		try {
-			//contôle si la benne à remplir est arrivée
+			//contï¿½le si la benne ï¿½ remplir est arrivï¿½e
 			if(_listDeBennes.get(_numBenneARemplir).getEtat() == EnumEtatBenne.DESAMARRER_EN_FORET)
 			{
-				System.out.println(this.getName() + ", " + _benneAAttendre + " est arrivée");
+				System.out.println(this.getName() + ", " + _benneAAttendre + " est arrivï¿½e");
 				
 				//rempli la benne
 				System.out.println(this.getName() + " decharge le bois");
@@ -84,21 +84,22 @@ public class Bucheron extends Thread
 				_listDeBennes.get(_numBenneARemplir).setEtat(EnumEtatBenne.REMPLIE);
 				System.out.println(this.getName() + ", NOTIFY : la "+ _benneAAttendre + " est pleine");
 
-				//benne suivante à remplir
+				//benne suivante ï¿½ remplir
 				_numBenneARemplir = (_numBenneARemplir+1)%_nbrDeBenneDansParc;
 				_benneAAttendre = _listDeBennes.get(_numBenneARemplir).getName();
 
-				//changement d'état du bucheron
+				//changement d'ï¿½tat du bucheron
 				state++;
 				
 				synchronized(_lock) 
 				{
 					_lock.notifyAll();
+					_listEvenement.add(2);
 				};
 			}	
 			else
 			{
-				//s'endort j'usque la benne soit arrivée
+				//s'endort j'usque la benne soit arrivï¿½e
 				synchronized(_lock) 
 				{
 					System.out.println(this.getName() + ", WAIT : j'attends sur la benne " + _benneAAttendre);

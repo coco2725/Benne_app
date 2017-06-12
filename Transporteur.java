@@ -56,6 +56,7 @@ public class Transporteur extends Thread
 	{
 		System.out.println(this.getName() + " transporte la benne usine -> foret");
 		_listDeBennes.get(_numBenneAAmmarerEnForet).setEtat(EnumEtatBenne.TRANSPORTER_DE_USINE_VERS_FORET);
+		_listEvenement.add(8);
 		_state++;
 		try 
 		{
@@ -75,7 +76,7 @@ public class Transporteur extends Thread
 		try 
 		{
 			TimeUnit.SECONDS.sleep((int)(1+Math.random()*_maxTime));
-			System.out.println(this.getName() + ", NOTIFY : le benne "+ _benneAAmmarerEnForet + " est desmarrée en forêt");
+			System.out.println(this.getName() + ", NOTIFY : le benne "+ _benneAAmmarerEnForet + " est desmarrï¿½e en forï¿½t");
 			_listDeBennes.get(_numBenneAAmmarerEnForet).setEtat(EnumEtatBenne.DESAMARRER_EN_FORET);
 			//predn la benne suivante
 			_numBenneAAmmarerEnForet = (_numBenneAAmmarerEnForet+1)%_nbrDeBenneDansParc;
@@ -83,6 +84,7 @@ public class Transporteur extends Thread
 			synchronized(_lock) 
 			{
 				_lock.notifyAll();
+				_listEvenement.add(1);
 			};		
 
 		} 
@@ -98,27 +100,29 @@ public class Transporteur extends Thread
 		System.out.println(this.getName() + ", le bucheron a fini de remplir une benne");
 
 		try {
-			//contôle si la benne est remplie
+			//contï¿½le si la benne est remplie
 			if(	_listDeBennes.get(_numBenneAAmmarerEnForet).getEtat() == EnumEtatBenne.REMPLIE)
 			{
 				System.out.println(this.getName() + ", " + _benneAAmmarerEnForet + " est bien remplie");
 				//ammarer la benne
-				System.out.println(this.getName() + ", " + _benneAAmmarerEnForet + " prête pour être ammarée");
+				System.out.println(this.getName() + ", " + _benneAAmmarerEnForet + " prï¿½te pour ï¿½tre ammarï¿½e");
 				TimeUnit.SECONDS.sleep((int)(1+Math.random()*_maxTime));	
 				
 				//Changement de l'etat de la benne
 				_listDeBennes.get(_numBenneAAmmarerEnForet).setEtat(EnumEtatBenne.AMARER_EN_FORET);
-				System.out.println(this.getName() + ", " +  _benneAAmmarerEnForet + " est ammarée en foret");
+				System.out.println(this.getName() + ", " +  _benneAAmmarerEnForet + " est ammarï¿½e en foret");
 
 				//Changement de l'etat du transporteur
+				_listEvenement.add(3);
 				_state++;
+				
 			}
 			else
 			{
-				//s'endort j'usque la benne soit arrivée
+				//s'endort j'usque la benne soit arrivï¿½e
 				synchronized(_lock) 
 				{
-					System.out.println(this.getName() + ", WAIT : j'attends sur la benne " + _benneAAmmarerEnForet + " en forêt");
+					System.out.println(this.getName() + ", WAIT : j'attends sur la benne " + _benneAAmmarerEnForet + " en forï¿½t");
 					_lock.wait();
 				};		
 			}
@@ -132,6 +136,7 @@ public class Transporteur extends Thread
 	{
 		System.out.println(this.getName() + ", transporte la benne foret -> usine");
 		_listDeBennes.get(_numBenneAAmmarerEnForet).setEtat(EnumEtatBenne.TRANSPORTER_DE_FORET_VERS_USINE);
+		_listEvenement.add(4);
 		_state++;
 		try 
 		{
@@ -144,15 +149,16 @@ public class Transporteur extends Thread
 
 	public void desamarreBenneUsine()
 	{
-		System.out.println(this.getName() + ", desamarre benne à l'usine");
+		System.out.println(this.getName() + ", desamarre benne ï¿½ l'usine");
 		_state++;
 		try 
 		{
 			TimeUnit.SECONDS.sleep((int)(1+Math.random()*_maxTime));
-			System.out.println(this.getName() + ", NOTIFY : le benne "+ _benneAAmmarerEnForet + " est desmarrée à l'usine");
+			System.out.println(this.getName() + ", NOTIFY : le benne "+ _benneAAmmarerEnForet + " est desmarrï¿½e ï¿½ l'usine");
 			_listDeBennes.get(_numBenneAAmmarerEnForet).setEtat(EnumEtatBenne.DESAMARER_USINE);
 			synchronized(_lock) 
 			{
+				_listEvenement.add(5);
 				_lock.notifyAll();
 			};		
 
@@ -167,30 +173,31 @@ public class Transporteur extends Thread
 
 	public void amarreBenneUsine()
 	{
-		System.out.println(this.getName() + ", l'ouvrier à fini de vider la benne");
+		System.out.println(this.getName() + ", l'ouvrier ï¿½ fini de vider la benne");
 
 		try {
-			//contôle si la benne est vide
+			//contï¿½le si la benne est vide
 			if(	_listDeBennes.get(_numBenneAAmmarerEnForet).getEtat() == EnumEtatBenne.VIDE)
 			{
-				System.out.println(this.getName() + ", " + _benneAAmmarerEnForet + " est bien vidée");
+				System.out.println(this.getName() + ", " + _benneAAmmarerEnForet + " est bien vidï¿½e");
 				//ammarer la benne
-				System.out.println(this.getName() + ", " + _benneAAmmarerEnForet + " prête pour être ammarée");
+				System.out.println(this.getName() + ", " + _benneAAmmarerEnForet + " prï¿½te pour ï¿½tre ammarï¿½e");
 				TimeUnit.SECONDS.sleep((int)(1+Math.random()*_maxTime));	
 				
 				//Changement de l'etat de la benne
 				_listDeBennes.get(_numBenneAAmmarerEnForet).setEtat(EnumEtatBenne.AMARER_USINE);
-				System.out.println(this.getName() + ", " +  _benneAAmmarerEnForet + " est ammarée à l'usine");
+				System.out.println(this.getName() + ", " +  _benneAAmmarerEnForet + " est ammarï¿½e ï¿½ l'usine");
 
 				//Changement de l'etat du transporteur
+				_listEvenement.add(7);
 				_state++;
 			}
 			else
 			{
-				//s'endort j'usque la benne soit arrivée
+				//s'endort j'usque la benne soit arrivï¿½e
 				synchronized(_lock) 
 				{
-					System.out.println(this.getName() + ", WAIT : j'attends sur la benne " + _benneAAmmarerEnForet + " à l'usine");
+					System.out.println(this.getName() + ", WAIT : j'attends sur la benne " + _benneAAmmarerEnForet + " ï¿½ l'usine");
 					_lock.wait();
 				};		
 			}
@@ -204,7 +211,7 @@ public class Transporteur extends Thread
 		
 		
 		
-		System.out.println(this.getName() + ", amarre benne à l'usine");
+		System.out.println(this.getName() + ", amarre benne ï¿½ l'usine");
 		_listDeBennes.get(_numBenneAAmmarerEnForet).setEtat(EnumEtatBenne.AMARER_USINE);
 		_state=0;
 		try {
