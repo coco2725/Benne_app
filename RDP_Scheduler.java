@@ -1,5 +1,5 @@
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
+import java.util.ListIterator;
 
 
 public class RDP_Scheduler extends Thread 
@@ -9,7 +9,8 @@ public class RDP_Scheduler extends Thread
 	private Integer _numEvenement;
 	
 	private ArrayList<Integer> _listEvenement = new ArrayList<Integer>();
-
+	private ListIterator<Integer> _it = _listEvenement.listIterator();
+	
 	public RDP_Scheduler(String name, ArrayList<Integer> listEvenement, Object lock)
 	{
 		super(name);
@@ -29,10 +30,16 @@ public class RDP_Scheduler extends Thread
 
 	public void runScheduler()
 	{
-		System.out.println(this.getName() + " demmarrage");
+		System.out.println(this.getName() + " Wake up de tick");
 		try 
 		{
-
+			int j = 0;
+			while (_listEvenement.size() > j) 
+			{
+				//System.out.println(_listEvenement.get(j));
+				j++;
+			}			
+			
 			synchronized(_lock) 
 			{
 				System.out.println(this.getName() + " WAIT : j'attends sur le tick ");
@@ -45,7 +52,6 @@ public class RDP_Scheduler extends Thread
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 	}
 	
 }

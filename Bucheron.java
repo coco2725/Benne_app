@@ -45,7 +45,7 @@ public class Bucheron extends Thread
 
 	public void coupe()
 	{
-		System.out.println(this.getName() + " coupe du bois");
+		System.out.println(this.getName() + "    , coupe du bois");
 		state++;
 		try {
 			TimeUnit.SECONDS.sleep((int)(1+Math.random()*maxTime));
@@ -57,7 +57,7 @@ public class Bucheron extends Thread
 
 	public void ammenerBenne()
 	{
-		System.out.println(this.getName() + " apporte le bois vers benne");
+		System.out.println(this.getName() + "    , apporte le bois vers benne");
 		state++;
 		try {
 			TimeUnit.SECONDS.sleep((int)(1+Math.random()*maxTime));
@@ -69,20 +69,20 @@ public class Bucheron extends Thread
 
 	public void decharge()
 	{
-		System.out.println(this.getName() + " arrivï¿½ vers la benne");
+		System.out.println(this.getName() + "    , arrivé vers la benne");
 		try {
 			//contï¿½le si la benne ï¿½ remplir est arrivï¿½e
 			if(_listDeBennes.get(_numBenneARemplir).getEtat() == EnumEtatBenne.DESAMARRER_EN_FORET)
 			{
-				System.out.println(this.getName() + ", " + _benneAAttendre + " est arrivï¿½e");
+				System.out.println(this.getName() + "    , " + _benneAAttendre + " est arrivée");
 				
 				//rempli la benne
-				System.out.println(this.getName() + " decharge le bois");
+				System.out.println(this.getName() + "    , decharge le bois");
 				TimeUnit.SECONDS.sleep((int)(1+Math.random()*maxTime));
 
 				//Changement de l'etat de la benne
 				_listDeBennes.get(_numBenneARemplir).setEtat(EnumEtatBenne.REMPLIE);
-				System.out.println(this.getName() + ", NOTIFY : la "+ _benneAAttendre + " est pleine");
+				System.out.println(this.getName() + "    , NOTIFY : la "+ _benneAAttendre + " est pleine");
 
 				//benne suivante ï¿½ remplir
 				_numBenneARemplir = (_numBenneARemplir+1)%_nbrDeBenneDansParc;
@@ -102,7 +102,7 @@ public class Bucheron extends Thread
 				//s'endort j'usque la benne soit arrivï¿½e
 				synchronized(_lock) 
 				{
-					System.out.println(this.getName() + ", WAIT : j'attends sur la benne " + _benneAAttendre);
+					System.out.println(this.getName() + "    , WAIT : j'attends sur la benne " + _benneAAttendre);
 					_lock.wait();
 				};		
 			}
@@ -115,7 +115,7 @@ public class Bucheron extends Thread
 
 	public void retourneForet()
 	{
-		System.out.println(this.getName() + " retourne en foret");
+		System.out.println(this.getName() + "    , retourne en foret");
 		state=0;
 		try {
 			TimeUnit.SECONDS.sleep((int)(1+Math.random()*maxTime));

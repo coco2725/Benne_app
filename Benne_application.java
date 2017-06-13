@@ -27,11 +27,15 @@ public class Benne_application {
 		//création de la liste du buffer d'évenement
 		ArrayList<Integer> listEvenement = new ArrayList<Integer>();
 		
+		//création des bennes de base toutes à la foret
 		for(int i = 1; i <= NbBenne ; i++)
 		{
 			Benne benne = new Benne("Benne" + i, i);
 			listDeBennes.add(benne);
 		}
+		
+		//départ de la benne n°3 à l'usine et vide
+		listDeBennes.get(2).setEtat(EnumEtatBenne.VIDE);
 		
 		for(int i = 0; i < listDeBennes.size() ; i++)
 		{
@@ -43,13 +47,13 @@ public class Benne_application {
 		Ouvrier O1 = new Ouvrier("Ouvrier 1", listDeBennes, listEvenement, NbBenne, lock);
 		Bucheron B1 = new Bucheron("Bucheron 1", listDeBennes, listEvenement,  NbBenne, lock);
 		RDP_Scheduler rdpScheduler = new RDP_Scheduler("rdpScheduler", listEvenement, lockRDP);
-        Tick tick = new Tick(1, lockRDP);
+        Tick tick = new Tick(5, lockRDP);
 		
 		T1.start();
 		O1.start();
 		B1.start();
-		rdpScheduler.start();
-		tick.start();
+		//rdpScheduler.start();
+		//tick.start();
 	}
 
 }
