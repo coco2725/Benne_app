@@ -52,8 +52,8 @@ public class Benne_application {
 		T1.start();
 		O1.start();
 		B1.start();
-		//rdpScheduler.start();
-		//tick.start();
+		rdpScheduler.start();
+		tick.start();
 	}
 
 }
