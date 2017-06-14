@@ -51,6 +51,14 @@ public class Benne_application {
         Tick tick = new Tick(1, lockRDP);
 		
         rdpScheduler.displayPlace();
+        
+        //affichage des commentaires
+        T1.setDebugOn(false);
+        O1.setDebugOn(false);
+        B1.setDebugOn(false);
+        rdpScheduler.setDebugOn(false);
+        
+        //demmarrage des threads
 		T1.start();
 		O1.start();
 		B1.start();

@@ -147,5 +147,10 @@ public class Bucheron extends Thread
 			e.printStackTrace();
 		}
 	}
+	
+	public void setDebugOn(boolean value)
+	{
+		debugON = value;
+	}
 
 }

@@ -266,5 +266,10 @@ public class Transporteur extends Thread
 		}
 				
 	}
+	
+	public void setDebugOn(boolean value)
+	{
+		debugON = value;
+	}
 
 }

@@ -170,5 +170,8 @@ public class Ouvrier extends Thread
 
 	}
 
-
+	public void setDebugOn(boolean value)
+	{
+		debugON = value;
+	}
 }

@@ -1,3 +1,5 @@
+import com.sun.org.apache.xml.internal.resolver.helpers.Debug;
+
 public class Benne {
 
 	private EnumEtatBenne state;
@@ -89,5 +91,5 @@ public class Benne {
 	{
 		System.out.println(this.getName() + " ammarer � l'usine");
 	}
-
+	
 }

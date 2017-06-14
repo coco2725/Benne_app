@@ -264,6 +264,10 @@ public class RDP_Scheduler extends Thread
 	System.out.println("  " + tabNouveauMarquage[1] + " ---||--- " + tabNouveauMarquage[2] + " ---||--- " + tabNouveauMarquage[3] + " ---||--- " + tabNouveauMarquage[4]);	
 	}
 	
+	public void setDebugOn(boolean value)
+	{
+		debugON = value;
+	}
 
 }
 
