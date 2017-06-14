@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class Benne_application {
 
+	
 	public static void main(String[] args) 
 	{
 		// TODO Auto-generated method stub
@@ -47,13 +48,14 @@ public class Benne_application {
 		Ouvrier O1 = new Ouvrier("Ouvrier 1", listDeBennes, listEvenement, NbBenne, lock);
 		Bucheron B1 = new Bucheron("Bucheron 1", listDeBennes, listEvenement,  NbBenne, lock);
 		RDP_Scheduler rdpScheduler = new RDP_Scheduler("rdpScheduler", listEvenement, lockRDP);
-        Tick tick = new Tick(5, lockRDP);
+        Tick tick = new Tick(1, lockRDP);
 		
+        rdpScheduler.displayPlace();
 		T1.start();
 		O1.start();
 		B1.start();
-		rdpScheduler.start();
 		tick.start();
+		rdpScheduler.start();
 	}
 
 }

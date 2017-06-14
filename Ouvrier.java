@@ -3,6 +3,9 @@ import java.util.concurrent.TimeUnit;
 
 public class Ouvrier extends Thread 
 {
+	//affichage des commentaires
+	private boolean debugON = false;
+
 	private int state = 0;
 	private int maxTime = 3;
 	private ArrayList<Benne> _listDeBennes = new ArrayList<Benne>();
@@ -45,7 +48,10 @@ public class Ouvrier extends Thread
 	
 	public void dechargeBenne()
 	{
-		System.out.println(this.getName() + "     , arrivee vers la benne");
+		if(debugON)
+		{
+			System.out.println(this.getName() + "     , arrivee vers la benne");
+		}
 		try {
 			//TimeUnit.SECONDS.sleep((int)(1+Math.random()*maxTime));
 			do
@@ -54,7 +60,10 @@ public class Ouvrier extends Thread
 				if(_listDeBennes.get(i).getName() == _benneAAttendre && 
 						_listDeBennes.get(i).getEtat() == EnumEtatBenne.DESAMARER_USINE)
 				{
-					System.out.println(this.getName() + "     , " + _benneAAttendre + " est arrivée");
+					if(debugON)
+					{
+						System.out.println(this.getName() + "     , " + _benneAAttendre + " est arrivée");
+					}
 					_benneArrivee = true;
 					//_benneAAttendre =  _listDeBennes.get((i+1)%3).getName();
 					_numBenneAVider = i;
@@ -67,8 +76,11 @@ public class Ouvrier extends Thread
 
 			if(_benneArrivee)
 			{
+				if(debugON)
+				{
 				//vide la benne
-				System.out.println(this.getName() + "     , decharge le bois");
+					System.out.println(this.getName() + "     , decharge le bois");
+				}
 				TimeUnit.SECONDS.sleep((int)(1+Math.random()*maxTime));
 				
 				//Changement de l'etat de la benne
@@ -82,7 +94,10 @@ public class Ouvrier extends Thread
 				_benneArrivee = false;
 				synchronized(_lock) 
 				{
-					System.out.println(this.getName() + "       NOTIFY : la benne est vide");
+					if(debugON)
+					{
+						System.out.println(this.getName() + "    , NOTIFY : la benne est vide");
+					}
 					_listEvenement.add(6);
 					_lock.notifyAll();
 				}
@@ -92,7 +107,10 @@ public class Ouvrier extends Thread
 				//s'endort j'usque la benne soit arrivï¿½e
 				synchronized(_lock) 
 				{
-					System.out.println(this.getName() + "     , WAIT : j'attends sur la benne " + _benneAAttendre);
+					if(debugON)
+					{
+						System.out.println(this.getName() + "     , WAIT : j'attends sur la benne " + _benneAAttendre);
+					}
 					_lock.wait();
 				};		
 			}
@@ -106,7 +124,10 @@ public class Ouvrier extends Thread
 
 	public void ammenerUsine()
 	{
-		System.out.println(this.getName() + "      , ammene a l'usine");
+		if(debugON)
+		{
+			System.out.println(this.getName() + "     , ammene a l'usine");
+		}
 		state++;
 		try {
 			TimeUnit.SECONDS.sleep((int)(1+Math.random()*maxTime));
@@ -119,7 +140,10 @@ public class Ouvrier extends Thread
 
 	public void scieBois()
 	{
-		System.out.println(this.getName() + "      , scie le bois");
+		if(debugON)
+		{
+			System.out.println(this.getName() + "      , scie le bois");
+		}
 		state++;
 		try {
 			TimeUnit.SECONDS.sleep((int)(1+Math.random()*maxTime));
@@ -132,7 +156,10 @@ public class Ouvrier extends Thread
 
 	public void retourneBenne()
 	{
-		System.out.println(this.getName() + "      , retourne a la benne");
+		if(debugON)
+		{
+			System.out.println(this.getName() + "      , retourne a la benne");
+		}
 		state=0;
 		try {
 			TimeUnit.SECONDS.sleep((int)(1+Math.random()*maxTime));
