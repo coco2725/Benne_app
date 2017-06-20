@@ -4,6 +4,9 @@ import java.util.ArrayList;
 public class RDP_Scheduler extends Thread 
 {
 
+	//arrêt du thread
+	protected volatile boolean running = true;
+
 	private boolean debugON = false;
 	Object _lock;
 	private Integer _nbPlace = 8;
@@ -68,7 +71,7 @@ public class RDP_Scheduler extends Thread
 	public void run()
 	{
 		System.out.println(this.getName() + " creer");
-		while(true)
+		while(running)
 		{		
 			if(_listEvenement.size()>0)
 			{
@@ -93,7 +96,13 @@ public class RDP_Scheduler extends Thread
 				e.printStackTrace();
 			}
 		} 
+		this.interrupt();
 	} 
+
+	public void arret() 
+	{
+		running = false;
+	}
 
 	//ajout de la transition dans la lsite des transition sensibilisée
 	private void phaseFi1()

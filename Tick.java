@@ -3,7 +3,9 @@ import java.util.concurrent.TimeUnit;
 public class Tick extends Thread {
 	private int _time_tick;
 	Object _lock;
-	
+
+	protected volatile boolean running = true;
+
 	public Tick(int time_tick, Object lock)
 	{
 		_time_tick = time_tick;
@@ -12,7 +14,7 @@ public class Tick extends Thread {
 	
 	public void run()
 	{
-		while(true)
+		while(running)
 		{
 			try {
 				TimeUnit.SECONDS.sleep(_time_tick);
@@ -24,6 +26,12 @@ public class Tick extends Thread {
 				_lock.notify();
 			}
 		}
+		this.interrupt();
+	}
+
+	public void arret() 
+	{
+		running = false;
 	}
 
 }

@@ -3,7 +3,10 @@ import java.util.concurrent.TimeUnit;
 
 
 public class Bucheron extends Thread
-{
+{	
+	//arrêt du thread
+	protected volatile boolean running = true;
+	
 	//affichage des commentaires
 	private boolean debugON = false;
 	
@@ -29,7 +32,7 @@ public class Bucheron extends Thread
 	public void run()
 	{
 		System.out.println(this.getName() + " creer");
-		while(true)
+		while(running)
 		{
 			switch (state){
 			case 0: coupe();
@@ -43,8 +46,14 @@ public class Bucheron extends Thread
 			default : break;
 			}
 		} 
+		this.interrupt();
 	}
 
+
+	public void arret() 
+	{
+		running = false;
+	}
 
 	public void coupe()
 	{

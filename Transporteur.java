@@ -3,6 +3,9 @@ import java.util.concurrent.TimeUnit;
 
 public class Transporteur extends Thread 
 {
+	//arrêt du thread
+	protected volatile boolean running = true;
+
 	//affichage des commentaires
 	private boolean debugON = false;
 
@@ -31,7 +34,7 @@ public class Transporteur extends Thread
 	public void run()
 	{
 		System.out.println(this.getName() + " creer");
-		while(true)
+		while(running)
 		{
 			switch (_state){
 			case 0: transporteBenneDeUsineAForet();
@@ -50,7 +53,13 @@ public class Transporteur extends Thread
 			default : break;
 			}
 		} 
+		this.interrupt();
 	} 
+
+	public void arret() 
+	{
+		running = false;
+	}
 
 	public void transporteBenneDeUsineAForet()
 	{

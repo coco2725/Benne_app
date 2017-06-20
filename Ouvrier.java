@@ -3,6 +3,9 @@ import java.util.concurrent.TimeUnit;
 
 public class Ouvrier extends Thread 
 {
+	//arrêt du thread
+	protected volatile boolean running = true;
+
 	//affichage des commentaires
 	private boolean debugON = false;
 
@@ -30,7 +33,7 @@ public class Ouvrier extends Thread
 	public void run()
 	{
 		System.out.println(this.getName() + " creer");
-		while(true)
+		while(running)
 		{
 			switch (state){
 			case 0: dechargeBenne();
@@ -44,8 +47,14 @@ public class Ouvrier extends Thread
 			default : break;
 			}
 		} 
+		this.interrupt();
 	} 
 	
+	public void arret() 
+	{
+		running = false;
+	}
+
 	public void dechargeBenne()
 	{
 		if(debugON)
