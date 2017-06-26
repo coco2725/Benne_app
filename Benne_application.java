@@ -28,7 +28,7 @@ public class Benne_application {
 		Object lockRDP = new Object();
 
 		System.out.println("******************************************************************");				
-		System.out.println("Bienvenu dasn l'application des bennes");
+		System.out.println("Bienvenu dans l'application des bennes");
 		System.out.println("Créé par Vincent et Sébastien");
 		System.out.println("******************************************************************\n");				
 
@@ -213,11 +213,11 @@ public class Benne_application {
 		sc = new Scanner(System.in);	
 		String str = " ";
 		char carac = str.charAt(0);
-		System.out.println("Pour lancer l'application choisser parmis les deux option suivante\n");
+		System.out.println("Pour lancer l'application choisissez parmi les options suivantes\n");
 		System.out.println("t : timer , l'application ce fini après un temps défini par vous");
 		System.out.println("l : live  , boucle infinie, tapez q pour quitter");
 		System.out.println("d : debug , affichage des messages de chaque thread\n");
-		System.out.println("par défaut, les message de debug sont masqués\n");
+		System.out.println("Par défaut, les messages de debug sont masqués\n");
 		System.out.println("entrez : t, l, d");
 
 		do
